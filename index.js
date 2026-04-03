@@ -20,7 +20,6 @@ const fetchData = async (category, page) => {
       );
       data = await res.json();
       break;
-      
 
     case "characters":
       console.log("characters selected");
@@ -32,7 +31,7 @@ const fetchData = async (category, page) => {
 
     case "monsters":
       console.log("monsters selected");
-            res = await fetch(
+      res = await fetch(
         `https://zelda.fanapis.com/api/monsters?limit=50&page=${page}`,
       );
       data = await res.json();
@@ -40,7 +39,7 @@ const fetchData = async (category, page) => {
 
     case "bosses":
       console.log("bosses selected");
-            res = await fetch(
+      res = await fetch(
         `https://zelda.fanapis.com/api/bosses?limit=50&page=${page}`,
       );
       data = await res.json();
@@ -48,7 +47,7 @@ const fetchData = async (category, page) => {
 
     case "dungeons":
       console.log("dungeons selected");
-            res = await fetch(
+      res = await fetch(
         `https://zelda.fanapis.com/api/dungeons?limit=50&page=${page}`,
       );
       data = await res.json();
@@ -56,7 +55,7 @@ const fetchData = async (category, page) => {
 
     case "places":
       console.log("places selected");
-            res = await fetch(
+      res = await fetch(
         `https://zelda.fanapis.com/api/places?limit=50&page=${page}`,
       );
       data = await res.json();
@@ -64,7 +63,7 @@ const fetchData = async (category, page) => {
 
     case "items":
       console.log("items selected");
-            res = await fetch(
+      res = await fetch(
         `https://zelda.fanapis.com/api/items?limit=50&page=${page}`,
       );
       data = await res.json();
@@ -73,6 +72,20 @@ const fetchData = async (category, page) => {
 
   return data.data;
 };
+
+function addInfo(card, label, value) {
+  const title = document.createElement("h2");
+  const span = document.createElement("span");
+
+  span.classList.add("without-font");
+  span.textContent = value || "None";
+
+  title.textContent = `${label} : `;
+  title.classList.add("capital");
+  title.append(span);
+
+  card.append(title);
+}
 
 const makeCoverCategory = (category, arrayResults) => {
   const main = document.getElementById("main");
@@ -88,7 +101,7 @@ const makeCoverCategory = (category, arrayResults) => {
 
   inputPage.addEventListener("change", async () => {
     let page = Number(inputPage.value);
-    
+
     let arrayResults = await fetchData(category, page);
     lastPage = page;
     cover.remove();
@@ -135,40 +148,15 @@ const makeCoverCategory = (category, arrayResults) => {
 
     switch (category) {
       case "games":
-        const developperTitle = document.createElement("h2");
-        const developper = document.createElement("span");
-        developper.classList.add("without-font");
-        developper.textContent = result.developer;
-
-        developperTitle.textContent = `developper : `;
-        developperTitle.classList.add("capital");
-        developperTitle.append(developper);
-        card.append(developperTitle);
-
-        const publisherTitle = document.createElement("h2");
-        const publisher = document.createElement("span");
-        publisher.classList.add("without-font");
-        publisher.textContent = result.publisher;
-
-        publisherTitle.textContent = `publisher : `;
-        publisherTitle.classList.add("capital");
-        publisherTitle.append(publisher);
-        card.append(publisherTitle);
-
-        const releasedDateTitle = document.createElement("h2");
-        const releasedDate = document.createElement("span");
-        releasedDate.classList.add("without-font");
-        releasedDate.textContent = result.released_date;
-
-        releasedDateTitle.textContent = `Release date : `;
-        releasedDateTitle.classList.add("capital");
-        releasedDateTitle.append(releasedDate);
-        card.append(releasedDateTitle);
+        addInfo(card, "developer", result.developer);
+        addInfo(card, "publisher", result.publisher);
+        addInfo(card, "release date", result.released_date);
 
         break;
 
       case "characters":
-        console.log("characters selected");
+        addInfo(card, "gender", result.gender);
+        addInfo(card, "race", result.race);
         break;
 
       case "monsters":
