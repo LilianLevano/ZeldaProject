@@ -1,0 +1,216 @@
+@font-face {
+    font-family: 'Zelda';
+    src: url('font/the_wild_breath_of_zelda/The Wild Breath of Zelda.otf') format('opentype');
+}
+
+* {
+    font-family: 'Zelda', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(to bottom,
+            #020403,
+            #08110d,
+            #0a0f0d,
+            #020403);
+
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    background-color: lightgray;
+    background-image: url("images/headerbackground.jpg");
+    background-size: cover;
+    background-position: center;
+
+    h1 {
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.2rem;
+        font-size: 70px;
+
+        border-radius: 30px;
+        padding: 10px;
+        color: #eab308;
+        -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.637);
+        text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+    }
+}
+
+
+main {
+
+    display: flex;
+    justify-content: center;
+
+
+    .chose-category {
+        display: flex;
+        margin-top: 60px;
+        gap: 20px;
+
+        width: 1500px;
+        flex-wrap: wrap;
+
+    }
+
+    .category {
+        flex: 0 0 calc(25% - 20px);
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: first baseline;
+        background-color: #1f3d2b;
+
+
+        border-radius: 40px;
+        height: 70px;
+        transition: 0.5s;
+
+        h1 {
+            margin: 0;
+            margin-top: 15px;
+            z-index: 10;
+            font-size: 40px;
+            color: #eab308;
+            -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.637);
+            text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+        }
+    }
+
+
+
+    .background-category {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        opacity: 0;
+        transition: 0.5s;
+        border-radius: 40px;
+
+    }
+
+    .category:hover {
+
+        height: 300px;
+        cursor: pointer;
+        box-shadow:
+            0 0 10px rgba(234, 179, 8, 0.8),
+            0 0 20px rgba(234, 179, 8, 0.7),
+            0 0 40px rgba(234, 179, 8, 0.6),
+            0 0 80px rgba(234, 179, 8, 0.5),
+            0 10px 40px rgba(0, 0, 0, 0.7);
+
+        .background-category {
+
+            opacity: 1;
+        }
+
+    }
+
+    .cover-category {
+        z-index: 10;
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+
+        background: linear-gradient(to bottom,
+                #020403,
+                #08110d,
+                #0a0f0d,
+                #020403);
+
+        width: 100%;
+        height: 100%;
+
+        color: white;
+        font-size: 1.3rem;
+
+        .cover-category-close {
+            font-size: 2.5rem;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            text-transform: uppercase;
+
+        }
+
+        .cover-category-close:hover{
+            cursor: pointer;
+        }
+
+        .container-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+
+            max-width: 1400px;
+            /* ajuste ça */
+            width: 100%;
+
+            justify-content: center;
+            /* 🔥 important */
+
+
+
+        }
+
+        .card-in-cover-category {
+
+            flex: 0 0 calc(33% - 70px);
+            background: rgba(20, 35, 25, 0.85);
+            border: 1px solid rgba(234, 179, 8, 0.25);
+            border-radius: 24px;
+            padding: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(6px);
+            transition: 0.3s;
+        }
+
+        .card-in-cover-category:hover {
+            transform: translateY(-8px);
+            box-shadow:
+                0 15px 35px rgba(0, 0, 0, 0.45),
+                0 0 25px rgba(234, 179, 8, 0.18);
+        }
+
+        .title-cover {
+            color: #eab308;
+            -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.637);
+            text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+            font-size: 5rem;
+            text-align: center;
+            margin: 10px 0 0;
+        }
+
+        .without-font{
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        span{
+            font-size: 1rem;
+        }
+
+        .capital{
+            text-transform: uppercase;
+        }
+
+        #page-number{
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+
+
+
+    }
+
+
+
+}
