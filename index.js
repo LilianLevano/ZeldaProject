@@ -10,68 +10,15 @@ let lastChosenCategory;
 let lastPage;
 
 const fetchData = async (category, page) => {
-  let data;
-  let res;
+  const url = `https://zelda.fanapis.com/api/${category}?limit=50&page=${page}`;
 
-  switch (category) {
-    case "games":
-      res = await fetch(
-        `https://zelda.fanapis.com/api/games?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-
-    case "characters":
-      console.log("characters selected");
-      res = await fetch(
-        `https://zelda.fanapis.com/api/characters?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-
-    case "monsters":
-      console.log("monsters selected");
-      res = await fetch(
-        `https://zelda.fanapis.com/api/monsters?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-
-    case "bosses":
-      console.log("bosses selected");
-      res = await fetch(
-        `https://zelda.fanapis.com/api/bosses?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-
-    case "dungeons":
-      console.log("dungeons selected");
-      res = await fetch(
-        `https://zelda.fanapis.com/api/dungeons?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-
-    case "places":
-      console.log("places selected");
-      res = await fetch(
-        `https://zelda.fanapis.com/api/places?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-
-    case "items":
-      console.log("items selected");
-      res = await fetch(
-        `https://zelda.fanapis.com/api/items?limit=50&page=${page}`,
-      );
-      data = await res.json();
-      break;
-  }
+  const res = await fetch(url);
+  const data = await res.json();
 
   return data.data;
 };
+
+let isLoading;
 
 function addInfo(card, label, value) {
   const title = document.createElement("h2");
@@ -87,26 +34,76 @@ function addInfo(card, label, value) {
   card.append(title);
 }
 
+function updatePageSelector(cover, page=0){
+
+  const divPaging = document.createElement('nav')
+  divPaging.classList.add('page-number-nav')
+  const category = cover.id
+
+  divPaging.setAttribute('value', category)
+  cover.append(divPaging)
+
+  let allButtons = [];
+
+
+  const buttonFirtPage = document.createElement('button')
+  buttonFirtPage.textContent = "First page"
+  buttonFirtPage.value = 0
+  allButtons.push(buttonFirtPage)
+
+  const startPage = Math.max(0, page - 1);
+  const endPage = startPage + 2;
+
+  for (let i = startPage; i <= endPage; i++) {
+    const button = document.createElement("button");
+    button.textContent = i;
+    button.value = i;
+    button.classList.add('round-button')
+    allButtons.push(button);
+    divPaging.append(button);
+  }
+
+  divPaging.prepend(buttonFirtPage);
+
+
+   for(let button of allButtons){
+    button.addEventListener('click', async () =>{
+    if (isLoading) return;
+
+    try {
+      isLoading = true;
+
+      for (let btn of allButtons) {
+        btn.disabled = true;
+      }
+
+      const selectedPage = Number(button.value);
+      lastPage = selectedPage;
+
+      const array = await fetchData(category, selectedPage);
+      cover.remove();
+      makeCoverCategory(category, array);
+    } finally {
+      isLoading = false;
+    }
+    })
+   }
+
+
+}
+
 const makeCoverCategory = (category, arrayResults) => {
   const main = document.getElementById("main");
 
   const cover = document.createElement("section");
   cover.classList.add("cover-category");
+  cover.id = category
   main.appendChild(cover);
 
-  const inputPage = document.createElement("input");
-  inputPage.type = "number";
-  inputPage.id = "page-number";
-  inputPage.placeholder = lastPage || 0;
+  const showPage = document.createElement("p");
+  showPage.textContent = `PAGE: ${lastPage ||0}`  
 
-  inputPage.addEventListener("change", async () => {
-    let page = Number(inputPage.value);
-
-    let arrayResults = await fetchData(category, page);
-    lastPage = page;
-    cover.remove();
-    makeCoverCategory(category, arrayResults);
-  });
+  
 
   const button = document.createElement("button");
   button.textContent = "Close";
@@ -122,7 +119,10 @@ const makeCoverCategory = (category, arrayResults) => {
   h1.textContent = category;
   h1.classList.add("title-cover");
   cover.append(h1);
-  cover.append(inputPage);
+  cover.append(showPage);
+  updatePageSelector(cover, lastPage)
+
+ 
 
   const containerCards = document.createElement("section");
   containerCards.classList.add("container-cards");
@@ -184,6 +184,8 @@ const makeCoverCategory = (category, arrayResults) => {
   }
 
   cover.append(containerCards);
+  
+   
 };
 
 for (let button of allButtonsCategories) {
@@ -193,5 +195,6 @@ for (let button of allButtonsCategories) {
     console.log(arrayResults);
 
     makeCoverCategory(lastChosenCategory, arrayResults);
+    
   });
 }

@@ -211,6 +211,22 @@ main {
 
     }
 
+    .page-number-nav{
+        margin-bottom: 10px;
+        display: flex;
+        gap: 50px;
+        button{
+            font-size: 1.1rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        button:hover{
+            background-color: silver;
+        }
+    }
+
 
 
 }
