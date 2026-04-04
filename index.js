@@ -10,7 +10,7 @@ let lastChosenCategory;
 let lastPage;
 
 const fetchData = async (category, page) => {
-  const url = `https://zelda.fanapis.com/api/${category}?limit=50&page=${page}`;
+  const url = `https://zelda.fanapis.com/api/${category}?limit=12&page=${page}`;
 
   const res = await fetch(url);
   const data = await res.json();
@@ -31,6 +31,34 @@ function addInfo(card, label, value) {
   title.classList.add("capital");
   title.append(span);
 
+  card.append(title);
+}
+
+async function addInfoArray(card, label, array) {
+  const title = document.createElement("h2");
+  const span = document.createElement("span");
+
+  span.classList.add("without-font");
+  title.classList.add("capital");
+  title.textContent = `${label} : `;
+
+  if (array.length === 0) {
+    span.textContent = "No data";
+  } else {
+    const names = [];
+
+    for (let element of array) {
+      const res = await fetch(element);
+      const data = await res.json();
+      const name = data.data.name;
+
+      names.push(name || "No data");
+    }
+
+    span.textContent = names.join(", ");
+  }
+
+  title.append(span);
   card.append(title);
 }
 
@@ -92,7 +120,7 @@ function updatePageSelector(cover, page=0){
 
 }
 
-const makeCoverCategory = (category, arrayResults) => {
+const makeCoverCategory = async (category, arrayResults) => {
   const main = document.getElementById("main");
 
   const cover = document.createElement("section");
@@ -146,47 +174,70 @@ const makeCoverCategory = (category, arrayResults) => {
     id.textContent = result.id;
     card.append(id);
 
+    const loader = createLoader();
+    cover.append(loader)
+
     switch (category) {
       case "games":
         addInfo(card, "developer", result.developer);
         addInfo(card, "publisher", result.publisher);
         addInfo(card, "release date", result.released_date);
+        
 
         break;
 
       case "characters":
         addInfo(card, "gender", result.gender);
         addInfo(card, "race", result.race);
+        await addInfoArray(card, "appearances", result.appearances);
         break;
 
       case "monsters":
         console.log("monsters selected");
+        await addInfoArray(card, "appearances", result.appearances);
         break;
 
       case "bosses":
-        console.log("bosses selected");
+        const dungeons = result.dungeons
+        await addInfoArray(card, "dungeons", dungeons)
+        await addInfoArray(card, "appearances", result.appearances);
         break;
 
       case "dungeons":
         console.log("dungeons selected");
+        await addInfoArray(card, "appearances", result.appearances);
         break;
 
       case "places":
-        console.log("places selected");
+        const inhabitants = result.inhabitants
+        await addInfoArray(card, "inhabitants", inhabitants)
+        await addInfoArray(card, "appearances", result.appearances);
         break;
 
       case "items":
         console.log("items selected");
+        await addInfoArray(card, "appearances", result.games);
         break;
     }
+
+    loader.remove();
 
     containerCards.append(card);
   }
 
+
   cover.append(containerCards);
+  updatePageSelector(cover, lastPage)
   
    
 };
+
+function createLoader() {
+  const loader = document.createElement("div");
+  loader.classList.add("loader");
+  loader.textContent = "Loading...";
+  return loader;
+}
 
 for (let button of allButtonsCategories) {
   button.addEventListener("click", async () => {
