@@ -58,8 +58,9 @@ main {
 
     }
 
-    .category {
-        flex: 0 0 calc(25% - 20px);
+    .category {     /* 355 x 300 */
+        flex: 0 0 355px;
+        flex-shrink: 0;
         position: relative;
         display: flex;
         justify-content: center;
@@ -68,6 +69,7 @@ main {
 
 
         border-radius: 40px;
+    
         height: 70px;
         transition: 0.5s;
 
@@ -127,15 +129,16 @@ main {
                 #020403);
 
         width: 100%;
-        height: 100%;
+        height: 4500px;
 
         color: white;
         font-size: 1.3rem;
 
         .cover-category-close {
             font-size: 2.5rem;
-            position: absolute;
-            right: 10px;
+            position: sticky;
+        
+            margin-left: auto;
             top: 10px;
             text-transform: uppercase;
 
@@ -165,12 +168,21 @@ main {
 
             flex: 0 0 calc(33% - 70px);
             background: rgba(20, 35, 25, 0.85);
+            position: relative;
             border: 1px solid rgba(234, 179, 8, 0.25);
             border-radius: 24px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
             backdrop-filter: blur(6px);
             transition: 0.3s;
+
+            .svg-add-favorite{
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                height: 50px;
+                width: 50px;
+            }
         }
 
         .card-in-cover-category:hover {

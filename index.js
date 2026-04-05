@@ -10,7 +10,7 @@ let lastChosenCategory;
 let lastPage;
 
 const fetchData = async (category, page) => {
-  const url = `https://zelda.fanapis.com/api/${category}?limit=12&page=${page}`;
+  const url = `https://zelda.fanapis.com/api/${category}?limit=9&page=${page}`;
 
   const res = await fetch(url);
   const data = await res.json();
@@ -45,15 +45,19 @@ async function addInfoArray(card, label, array) {
   if (array.length === 0) {
     span.textContent = "No data";
   } else {
-    const names = [];
+  
 
-    for (let element of array) {
+  const promises = array.map(async (element) => {
+    try {
       const res = await fetch(element);
       const data = await res.json();
-      const name = data.data.name;
-
-      names.push(name || "No data");
+      return data.data.name || "No data";
+    } catch {
+      return "No data";
     }
+  });
+
+  const names = await Promise.all(promises);
 
     span.textContent = names.join(", ");
   }
@@ -120,6 +124,23 @@ function updatePageSelector(cover, page=0){
 
 }
 
+function createSVG(pathData) {
+  const ns = "http://www.w3.org/2000/svg";
+
+  const svg = document.createElementNS(ns, "svg");
+  svg.setAttribute("width", "40");
+  svg.setAttribute("height", "40");
+  svg.setAttribute("viewBox", "0 -960 960 960");
+
+  const path = document.createElementNS(ns, "path");
+  path.setAttribute("d", pathData);
+  path.setAttribute("fill", "#000");
+
+  svg.appendChild(path);
+
+  return svg;
+}
+
 const makeCoverCategory = async (category, arrayResults) => {
   const main = document.getElementById("main");
 
@@ -150,15 +171,24 @@ const makeCoverCategory = async (category, arrayResults) => {
   cover.append(showPage);
   updatePageSelector(cover, lastPage)
 
+  
  
 
   const containerCards = document.createElement("section");
   containerCards.classList.add("container-cards");
 
+      const loader = createLoader();
+    cover.append(loader)
+
   for (let result of arrayResults) {
     const card = document.createElement("article");
     card.classList.add("card-in-cover-category");
     card.setAttribute("value", result.id);
+
+    const svg = createSVG("m480-120-58-52q-101-91-167-157T150-447.5Q111-500 95.5-544T80-634q0-94 63-157t157-63q52 0 99 22t81 62q34-40 81-62t99-22q94 0 157 63t63 157q0 46-15.5 90T810-447.5Q771-395 705-329T538-172l-58 52Zm0-108q96-86 158-147.5t98-107q36-45.5 50-81t14-70.5q0-60-40-100t-100-40q-47 0-87 26.5T518-680h-76q-15-41-55-67.5T300-774q-60 0-100 40t-40 100q0 35 14 70.5t50 81q36 45.5 98 107T480-228Zm0-273Z")
+    svg.classList.add('svg-add-favorite')
+    card.append(svg)
+    
 
     const name = document.createElement("h1");
     name.textContent = result.name;
@@ -174,8 +204,7 @@ const makeCoverCategory = async (category, arrayResults) => {
     id.textContent = result.id;
     card.append(id);
 
-    const loader = createLoader();
-    cover.append(loader)
+
 
     switch (category) {
       case "games":
@@ -220,12 +249,12 @@ const makeCoverCategory = async (category, arrayResults) => {
         break;
     }
 
-    loader.remove();
+    
 
     containerCards.append(card);
   }
 
-
+loader.remove();
   cover.append(containerCards);
   updatePageSelector(cover, lastPage)
   
