@@ -9,6 +9,8 @@ let lastChosenCategory;
 
 let lastPage;
 
+
+
 const fetchData = async (category, page) => {
   const url = `https://zelda.fanapis.com/api/${category}?limit=9&page=${page}`;
 

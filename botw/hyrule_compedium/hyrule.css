@@ -1,0 +1,179 @@
+@font-face {
+    font-family: 'Zelda';
+    src: url('font/the_wild_breath_of_zelda/The Wild Breath of Zelda.otf') format('opentype');
+}
+
+*{
+    font-family: 'Zelda', sans-serif;
+}
+
+body{
+    margin: 0;
+
+    background-image: url(images/background-body.webp);
+    
+    background-size: contain;
+    background-repeat: repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    flex-direction: column;
+}
+
+
+.cover{
+
+    
+    position: fixed;
+    z-index: 10;
+   
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.637);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    
+}
+
+.cover article{
+
+    
+    h1{
+        padding-left: 20px;
+    }
+
+        background-image: url(images/sheikah.jpg);
+        height: 700px;
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+        color: beige;
+      
+
+        .in-article{
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            background-color: #1A0F0F ;
+            padding: 10px;
+            border-top: 1px solid beige ;
+            border-bottom: 1px solid beige;
+            color: beige;
+
+            p{
+                font-size: 1.5rem;
+            }
+
+        }
+
+        .extraInfo{
+            display: flex;
+            gap: 100px;
+            padding-left: 20px;
+
+            p{
+                font-size: 2rem;
+            }
+        }
+    
+       
+
+}
+
+.close-button{
+
+    margin-top: 150px;
+    margin-left: 250px;
+    padding: 10px 50px 10px 50px;
+    font-size: 1.4rem;
+    background-image: url(images/blue_sheikah.jpg);
+    background-position: center;
+    background-size: cover;
+    border: 1px solid beige;
+    color: whitesmoke;
+    text-transform: uppercase;
+    max-width: 200px;
+ 
+}
+
+.close-button:hover{
+    cursor: pointer;
+}
+
+
+header{
+    width: 100%;
+    text-align: center;
+    background-image: url(images/sheikah.jpg);
+    border-bottom: 1px solid beige;
+    font-size: 2rem;
+    color: beige;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+  
+}
+
+main{
+    ul{
+        display: flex;
+        list-style: none;
+        padding: 0;
+        gap: 100px;
+        li{
+            color: beige;
+            font-size: 2rem;
+            border: 1px solid beige;
+            padding: 10px;
+            padding-bottom: 5px;
+            border-radius: 20px;
+            transition: 0.2s;
+        }
+
+        li:hover{
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        li:active{
+            transform: scale(1.1);
+
+        }
+    }
+
+    #items-container{
+        display: flex;
+        flex-direction: row;
+        max-width: 1300px;
+       gap: 100px;
+        flex-wrap: wrap;
+        box-sizing: border-box;
+      
+
+        .item{
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+              background-color: red;
+              padding: 10px;
+              height: 100px;
+              width: 300px;
+              border: 1px solid beige;
+              background-image: url(images/blue_sheikah.jpg);
+              background-position: center;
+              color: beige;
+              letter-spacing: 2px;
+
+              img{
+                height: 100px;
+              }
+        }
+        
+    }
+}

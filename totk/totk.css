@@ -1,0 +1,136 @@
+@font-face {
+    font-family: 'Breath of the wild';
+    src: url('font/the_wild_breath_of_zelda/The Wild Breath of Zelda.otf') format('opentype');
+
+
+}
+
+@font-face {
+    font-family: 'Hylia Serif';
+    src: url('../font/hylia-serif/Hylia Serif Beta v0-009/HyliaSerifBeta-Regular.otf') format('opentype');
+}
+
+* {
+    font-family: 'Hylia Serif';
+}
+
+body {
+    margin: 0;
+    background-image: url(../images/totk/totk-and-finally-heres-the-totk-background-as-a-desktop-v0-vwuokuuy91ua1.png);
+}
+
+header {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url(../images/totk/keyArt_desktop.jpg);
+    height: 400px;
+    background-size: cover;
+
+    #title-main-page {
+        margin: 0;
+        font-size: 70px;
+        background: linear-gradient(90deg, #eab308, #facc15, #fde047);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        text-shadow:
+            0 0 10px rgba(234, 179, 8, 0.9),
+            0 0 20px rgba(234, 179, 8, 0.7),
+            0 0 40px rgba(234, 179, 8, 0.5);
+
+        -webkit-text-stroke: 1px rgba(0, 0, 0, 0.6);
+
+    }
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 100px;
+
+    .filters {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 80%;
+        height: 50px;
+        background-color: #383838;
+        gap: 60px;
+        border-radius: 100px;
+
+        * {
+            font-size: 1.2rem;
+        }
+
+        .switch-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background-color: #1f1f1f;
+            padding: 12px 18px;
+            border-radius: 14px;
+            color: white;
+        }
+
+        .switch-input {
+            display: none;
+        }
+
+        .switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            background-color: #8f8f8f;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .switch::before {
+            content: "";
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background-color: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: 0.3s;
+        }
+
+        .switch-input:checked+.switch {
+            background-color: #22c55e;
+        }
+
+        .switch-input:checked+.switch::before {
+            transform: translateX(18px);
+        }
+
+
+    }
+
+    .all-items {
+        
+        width: 80%;
+        background-color: #1f1f1fbb;
+        border-radius: 100px;
+        display: flex;
+        gap: 30px;
+        flex-wrap: wrap;
+        justify-content: center;
+
+
+        .item{
+            flex: 0 0 256px;
+            background-color: green;
+        }
+        
+    }
+}

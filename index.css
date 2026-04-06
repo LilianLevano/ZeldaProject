@@ -32,7 +32,7 @@ header {
         text-transform: uppercase;
         letter-spacing: 0.2rem;
         font-size: 70px;
-
+        text-align: center;
         border-radius: 30px;
         padding: 10px;
         color: #eab308;
@@ -46,73 +46,140 @@ main {
 
     display: flex;
     justify-content: center;
+    height: 40vw;
 
 
-    .chose-category {
+    flex-wrap: wrap;
+
+    .main-menu {
         display: flex;
-        margin-top: 60px;
-        gap: 20px;
+        flex-direction: column;
+        align-items: center;
 
-        width: 1500px;
-        flex-wrap: wrap;
+        .chose-category {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 60px;
+            gap: 20px;
+            width: 100%;
+            max-width: 1500px;
+            flex-wrap: wrap;
 
-    }
-
-    .category {     /* 355 x 300 */
-        flex: 0 0 355px;
-        flex-shrink: 0;
-        position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: first baseline;
-        background-color: #1f3d2b;
-
-
-        border-radius: 40px;
-    
-        height: 70px;
-        transition: 0.5s;
-
-        h1 {
-            margin: 0;
-            margin-top: 15px;
-            z-index: 10;
-            font-size: 40px;
-            color: #eab308;
-            -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.637);
-            text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
         }
-    }
+
+        .category {
+            /* 355 x 300 */
+            flex: 0 0 355px;
+            flex-shrink: 0;
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: first baseline;
+            background-color: #1f3d2b;
+
+
+            border-radius: 40px;
+
+            height: 70px;
+            transition: 0.5s;
+
+            h1 {
+                margin: 0;
+                margin-top: 15px;
+                z-index: 10;
+                font-size: 40px;
+                color: #eab308;
+                -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.637);
+                text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+            }
+        }
 
 
 
-    .background-category {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        opacity: 0;
-        transition: 0.5s;
-        border-radius: 40px;
 
-    }
-
-    .category:hover {
-
-        height: 300px;
-        cursor: pointer;
-        box-shadow:
-            0 0 10px rgba(234, 179, 8, 0.8),
-            0 0 20px rgba(234, 179, 8, 0.7),
-            0 0 40px rgba(234, 179, 8, 0.6),
-            0 0 80px rgba(234, 179, 8, 0.5),
-            0 10px 40px rgba(0, 0, 0, 0.7);
 
         .background-category {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            opacity: 0;
+            transition: 0.5s;
+            border-radius: 40px;
 
-            opacity: 1;
         }
 
+        .category:hover {
+
+            height: 300px;
+            cursor: pointer;
+            box-shadow:
+                0 0 10px rgba(234, 179, 8, 0.8),
+                0 0 20px rgba(234, 179, 8, 0.7),
+                0 0 40px rgba(234, 179, 8, 0.6),
+                0 0 80px rgba(234, 179, 8, 0.5),
+                0 10px 40px rgba(0, 0, 0, 0.7);
+
+            .background-category {
+
+                opacity: 1;
+            }
+
+        }
+
+        .chose-external-site {
+            margin-top: 70px;
+            display: flex;
+            justify-content: center;
+            gap: 100px;
+            flex-wrap: wrap;
+
+            .to-external-site {
+                text-decoration: none;
+                transition: 0.5s;
+                border-radius: 40px;
+
+                h1 {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 355px;
+                    height: 70px;
+                    background-color: #0A1F44;
+                    border-radius: 40px;
+                    transition: 0.2s;
+                    margin: 0;
+                    text-align: center;
+                    color: #eab308;
+                    -webkit-text-stroke: 0.1px rgba(0, 0, 0, 0.637);
+                    text-shadow: 0 0 8px rgba(250, 204, 21, 0.6);
+
+                }
+
+                #totk {
+                    background-color: #145A46;
+                }
+
+
+
+            }
+        }
+
+        .to-external-site:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+            box-shadow:
+                0 0 10px rgba(234, 179, 8, 0.8),
+                0 0 20px rgba(234, 179, 8, 0.7),
+                0 0 40px rgba(234, 179, 8, 0.6),
+                0 0 80px rgba(234, 179, 8, 0.5),
+                0 10px 40px rgba(0, 0, 0, 0.7);
+
+        }
     }
+
+
 
     .cover-category {
         z-index: 10;
@@ -137,14 +204,14 @@ main {
         .cover-category-close {
             font-size: 2.5rem;
             position: sticky;
-        
+
             margin-left: auto;
             top: 10px;
             text-transform: uppercase;
 
         }
 
-        .cover-category-close:hover{
+        .cover-category-close:hover {
             cursor: pointer;
         }
 
@@ -176,7 +243,7 @@ main {
             backdrop-filter: blur(6px);
             transition: 0.3s;
 
-            .svg-add-favorite{
+            .svg-add-favorite {
                 position: absolute;
                 top: 10px;
                 right: 10px;
@@ -201,19 +268,19 @@ main {
             margin: 10px 0 0;
         }
 
-        .without-font{
+        .without-font {
             font-family: Arial, Helvetica, sans-serif;
         }
 
-        span{
+        span {
             font-size: 1rem;
         }
 
-        .capital{
+        .capital {
             text-transform: uppercase;
         }
 
-        #page-number{
+        #page-number {
             font-size: 1.5rem;
             margin-bottom: 10px;
         }
@@ -223,18 +290,19 @@ main {
 
     }
 
-    .page-number-nav{
+    .page-number-nav {
         margin-bottom: 10px;
         display: flex;
         gap: 50px;
-        button{
+
+        button {
             font-size: 1.1rem;
             width: 60px;
             height: 60px;
             border-radius: 50%;
         }
 
-        button:hover{
+        button:hover {
             background-color: silver;
         }
     }
