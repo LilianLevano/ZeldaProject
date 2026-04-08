@@ -129,6 +129,8 @@ header {
         justify-content: center;
 
 
+
+
         .item{
             flex: 0 0 256px;
             background-color: #1f1f1f;
@@ -199,3 +201,8 @@ header {
         
     }
 }
+
+        .error-message{
+            color: red;
+            font-size: 3rem;
+        }

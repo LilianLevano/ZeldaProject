@@ -9,6 +9,8 @@ function loadAllItems(data, array = false) {
     armors = Object.values(data.armors);
   }
 
+
+
 const order = {
   "Head": 0,
   "Chest": 1,
@@ -27,6 +29,13 @@ armors.sort((a, b) => {
 
   const mainList = document.getElementById("all-items");
   mainList.innerHTML = "";
+
+    if(armors.length === 0){
+    const errorMessage = document.createElement('p')
+    errorMessage.classList.add('error-message')
+    errorMessage.textContent = "No results found"
+    mainList.append(errorMessage)
+   }
 
   for (const armor of armors) {
     const card = document.createElement("article");
@@ -133,6 +142,7 @@ reset.addEventListener("click", () => {
   localStorage.setItem("armors", null);
   localStorage.setItem("obtainedArmors", JSON.stringify([]));
   console.log(localStorage.getItem("armors"));
+  location.reload();
 });
 
 const buttonObtainedOnly = document.getElementById("obtained-switch");
@@ -153,13 +163,42 @@ buttonObtainedOnly.addEventListener("change", () => {
   }
 });
 
-buttonNotObtainedOnly.addEventListener("click", () => {
+buttonNotObtainedOnly.addEventListener("change", () => {
   if (buttonNotObtainedOnly.checked && buttonObtainedOnly.checked) {
     buttonObtainedOnly.checked = false;
   }
 
-  for (const [name, armor] of Object.entries(data)) {
-  console.log(name, armor);
-}
-  
+  const savedArmors = JSON.parse(localStorage.getItem("armors")) || {};
+
+  let notObtainedArmors = [];
+
+  for (const armor of Object.values(data.armors)) {
+    const isObtained = savedArmors[armor.name]?.obtained === true;
+
+    if (!isObtained) {
+      notObtainedArmors.push(armor);
+    }
+  }
+
+  if (buttonNotObtainedOnly.checked) {
+    loadAllItems(notObtainedArmors, true);
+  } else {
+    loadAllItems(data);
+  }
+});
+
+const searchBar = document.getElementById('search-bar')
+searchBar.addEventListener("input", () => {
+  const armors = Object.values(data.armors);
+  const armorsToShow = [];
+
+  const search = searchBar.value.toLowerCase();
+
+  for (const armor of armors) {
+    if (armor.name.toLowerCase().includes(search)) {
+      armorsToShow.push(armor);
+    }
+  }
+
+  loadAllItems(armorsToShow, true);
 });
